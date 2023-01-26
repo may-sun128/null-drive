@@ -3,7 +3,9 @@
 import os 
 import sys
 import logging
+
 import nulltml
+import nullss
 
 # Logging
 logging.basicConfig(level=logging.DEBUG)
@@ -20,14 +22,17 @@ def main():
 	get_env()
 	# logging.warning()
 
-	# get nulltml object 
+	# get null html object 
 	nhtml = nulltml.nulltml()
+	# get null css object 
+	nss = nullss.nullss()
 	# programatically get html from director
 	# TODO do this in an html initialize function 
 	nhtml.generate_html()
 
 	# write html to temporary index file 
 	nhtml.write_html_to_file()
+	nss.write_css_to_file()
 
 	# Node.JS server command
 	start_srvr_cmd: str = 'http-server -p 8000'
@@ -37,6 +42,7 @@ def main():
 
 	# remove html after server stops
 	nhtml.remove_html()
+	nss.remove_css()
 
 	logging.debug(nhtml.get_html())
 
