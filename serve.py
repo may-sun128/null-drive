@@ -34,8 +34,11 @@ def main():
 	nhtml.write_html_to_file()
 	nss.write_css_to_file()
 
+	username = 'admin'
+	password = 'password'
+
 	# Node.JS server command
-	start_srvr_cmd: str = 'http-server -p 8000'
+	start_srvr_cmd: str = f'http-server -p 8000 --username={username} --password={password}'
 
 	# start server
 	os.system(start_srvr_cmd)
