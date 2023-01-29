@@ -36,9 +36,11 @@ def main():
 
 	username = 'admin'
 	password = 'password'
+	domain = 'midnight.home'
+	port = '8000'
 
 	# Node.JS server command
-	start_srvr_cmd: str = f'http-server -p 8000 --username={username} --password={password}'
+	start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password} -a {domain}'
 
 	# start server
 	os.system(start_srvr_cmd)
