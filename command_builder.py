@@ -1,6 +1,6 @@
 import os
 
-class connection_string:
+class serve_command:
 	def __init__(self):
 		self.port = '8000'
 		self.authentication = False 
@@ -19,15 +19,16 @@ class connection_string:
 			self.serve_command = 'http-server'
 		else:
 			print('Invalid server command.')
-		# port if node 
-		command += f'-p {self.port}'
+		# directory
+		self.serve_command += f' {self.serving_directory}'
+		# port
+		self.serve_command += f' -p {self.port}'
+		# if there's authentication
 		if self.authentication:
-			command += f'--username {username} --password={password}'
+			self.serve_command += f' --username={username} --password={password}'
+		# if there's a domain
 		if self.domain:
-			command += f'-a {self.domain}'
+			self.serve_command += f'-a {self.domain}'
+		return self.serve_command
 
 
-# start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
-
-# c = connection_string()
-# print(c.get_connection_string('admin', 'password'))

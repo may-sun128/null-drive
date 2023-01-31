@@ -4,10 +4,11 @@ import os
 import sys
 import logging
 import getpass
+import getopt
 
 import nulltml
 import nullss
-import connection_string
+import command_builder
 
 # Logging
 logging.basicConfig(level=logging.DEBUG)
@@ -19,8 +20,9 @@ def set_working_directory():
 		print('Null Drive serving working directory.')
 
 def get_server_command():
-	opts, args = getopt.getopt(argv,"s:d:a:o:p",["server=", "directory=","authentication=", "domain=", "port="])
-	conn = connection_string.connection_string()
+	argv = sys.argv[1:]
+	opts, args = getopt.getopt(argv, "s:d:a:o:p", ["server=", "directory=", "authentication=", "domain=", "port="])
+	conn = command_builder.serve_command()
 	for opt, arg in opts:
 		if opt in ('-s', '--server'):
 			conn.server = arg 
@@ -60,25 +62,25 @@ def main():
 
 	# domain = 'midnight.home'
 	# port = '8000'
-	conn = get_connection_string()
+	conn = get_server_command()
 	username, password = get_credentials()
-	conn.get_connection_string(username, password)
+	c = conn.get_connection_string(username, password)
 
 	# Node.JS server command
-	start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
+	# start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
 
 	# start server
-	os.system(start_srvr_cmd)
+	os.system(c)
 
 	# remove html after server stops
 	nhtml.remove_html()
 	nss.remove_css()
 
 def debug():
-	conn = connection_string.connection_string()
+	conn = get_server_command()
 	username, password = get_credentials()
 	s = conn.get_connection_string(username, password)
 	print(s)
 
-debug()
-# main()
+# debug()
+main()
