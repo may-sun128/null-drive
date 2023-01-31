@@ -7,6 +7,7 @@ import getpass
 
 import nulltml
 import nullss
+import connection_string
 
 # Logging
 logging.basicConfig(level=logging.DEBUG)
@@ -16,6 +17,23 @@ def set_working_directory():
 		os.chdir(sys.argv[1])
 	else:
 		print('Null Drive serving working directory.')
+
+def get_server_command():
+	opts, args = getopt.getopt(argv,"s:d:a:o:p",["server=", "directory=","authentication=", "domain=", "port="])
+	conn = connection_string.connection_string()
+	for opt, arg in opts:
+		if opt in ('-s', '--server'):
+			conn.server = arg 
+		elif opt in ("-d", "--directory"):
+			conn.serving_directory = arg
+		elif opt in ("-a", "--authentication"):
+			conn.authentication = arg
+		elif opt in ("-o", "--domain"):
+			conn.domain = arg
+		elif opt in ("-p", "--port"):
+			conn.port= arg
+	return conn 
+
 
 # set credentials for access to server
 def get_credentials():
@@ -40,9 +58,11 @@ def main():
 	nhtml.write_html_to_file() 
 	nss.write_css_to_file()
 
-	domain = 'midnight.home'
-	port = '8000'
+	# domain = 'midnight.home'
+	# port = '8000'
+	conn = get_connection_string()
 	username, password = get_credentials()
+	conn.get_connection_string(username, password)
 
 	# Node.JS server command
 	start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
@@ -54,4 +74,11 @@ def main():
 	nhtml.remove_html()
 	nss.remove_css()
 
-main()
+def debug():
+	conn = connection_string.connection_string()
+	username, password = get_credentials()
+	s = conn.get_connection_string(username, password)
+	print(s)
+
+debug()
+# main()
