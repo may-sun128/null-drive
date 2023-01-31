@@ -11,7 +11,7 @@ import nullss
 # Logging
 logging.basicConfig(level=logging.DEBUG)
 
-def get_env():
+def set_working_directory():
 	if len(sys.argv) == 2:
 		os.chdir(sys.argv[1])
 	else:
@@ -25,7 +25,7 @@ def get_credentials():
 	return username, password
 
 def main():
-	get_env()
+	set_working_directory()
 
 	# get null html object 
 	nhtml = nulltml.nulltml()
@@ -45,7 +45,7 @@ def main():
 	username, password = get_credentials()
 
 	# Node.JS server command
-	start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password} -a {domain}'
+	start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
 
 	# start server
 	os.system(start_srvr_cmd)

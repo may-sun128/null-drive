@@ -6,4 +6,4 @@ Null Drive is a similar to python's [SimpleHTTPServer](https://docs.python.org/2
 
 ## Dependencies 
 
-- node.js, available globally 
+- node.js http-server, available globally 
