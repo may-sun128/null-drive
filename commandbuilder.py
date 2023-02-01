@@ -12,7 +12,7 @@ class serve_command:
 	def get_connection_string(self, username, password):
 		command = ''
 		if self.server == 'python':
-			self.serve_command = 'python3 -m http.server'
+			self.serve_command = 'python -m http.server'
 			# If the server is python, no other arguments are applicable; exit 
 			return self.serve_command
 		elif self.server == 'node':

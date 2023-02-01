@@ -1,14 +1,13 @@
 #!/usr/bin/python
-
 import os 
 import sys
 import logging
 import getpass
 import getopt
+import jinja2 
+import commandbuilder
+import htmlgenerator
 
-import nulltml
-import nullss
-import command_builder
 
 # Logging
 logging.basicConfig(level=logging.DEBUG)
@@ -22,7 +21,7 @@ def set_working_directory():
 def get_server_command():
 	argv = sys.argv[1:]
 	opts, args = getopt.getopt(argv, "s:d:a:o:p", ["server=", "directory=", "authentication=", "domain=", "port="])
-	conn = command_builder.serve_command()
+	conn = commandbuilder.serve_command()
 	for opt, arg in opts:
 		if opt in ('-s', '--server'):
 			conn.server = arg 
@@ -45,27 +44,17 @@ def get_credentials():
 	return username, password
 
 def main():
-	set_working_directory()
+	# set_working_directory()
 
-	# get null html object 
-	nhtml = nulltml.nulltml()
-	# get null css object 
-	nss = nullss.nullss()
+	gen = htmlgenerator.HTMLGenerator()
+	html = gen.render_output(os.getcwd())
+	with open('index.html', 'w') as f:
+		f.write(html)
 
-	# programatically get html from director
-	# TODO do this in an html initialize function 
-	nhtml.generate_html()
-
-	# write html to temporary index file 
-	nhtml.write_html_to_file() 
-	nss.write_css_to_file()
-
-	# domain = 'midnight.home'
-	# port = '8000'
 	conn = get_server_command()
 	username, password = get_credentials()
 	c = conn.get_connection_string(username, password)
-
+	logging.debug(c)
 	# Node.JS server command
 	# start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
 
@@ -73,14 +62,9 @@ def main():
 	os.system(c)
 
 	# remove html after server stops
-	nhtml.remove_html()
-	nss.remove_css()
+	os.system('rm index.html')
 
-def debug():
-	conn = get_server_command()
-	username, password = get_credentials()
-	s = conn.get_connection_string(username, password)
-	print(s)
+
 
 # debug()
 main()
