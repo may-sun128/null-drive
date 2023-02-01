@@ -1,8 +1,10 @@
 # Null Drive
 
-## What is it?
+**Currently In Development**
 
-Null Drive is a similar to python's [SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html) or Node JS's [http-server](https://github.com/http-party/http-server) in that they display serve the directory contents of the directory you launch them in. This is very convenient for local file sharing. I wanted something similar, but a bit more polished, with styling. Thus **Null Drive dynamically creates the html and css pages for the directory you would like to share.** 
+## What is it? 
+
+Null Drive creates styled local directory server with a single command. Null Drive is a similar to python's [SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html) or Node JS's [http-server](https://github.com/http-party/http-server) in this way, but provides auto-generated HTML using `jinja2`. 
 
 ## Example
 
@@ -10,6 +12,9 @@ Null Drive is a similar to python's [SimpleHTTPServer](https://docs.python.org/2
 
 ![null drive serving ~/Files](images/example.png)
 
+> Note: this looks unimpressive as is, but more advanced styling is forthcoming. 
+
 ## Dependencies 
 
 - node.js http-server, available globally 
+- python 3
