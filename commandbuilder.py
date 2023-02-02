@@ -1,6 +1,6 @@
 import os
 
-class serve_command:
+class CommandBuilder:
 	def __init__(self):
 		self.port = '8000'
 		self.authentication = False 
@@ -9,7 +9,7 @@ class serve_command:
 		self.domain = None
 		self.serve_command = ''
 
-	def get_connection_string(self, username, password):
+	def get_server_command(self, username, password):
 		command = ''
 		if self.server == 'python':
 			self.serve_command = 'python -m http.server'

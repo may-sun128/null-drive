@@ -12,29 +12,22 @@ import htmlgenerator
 # Logging
 logging.basicConfig(level=logging.DEBUG)
 
-def set_working_directory():
-	if len(sys.argv) == 2:
-		os.chdir(sys.argv[1])
-	else:
-		print('Null Drive serving working directory.')
-
-def get_server_command():
+def parse_args():
 	argv = sys.argv[1:]
 	opts, args = getopt.getopt(argv, "s:d:a:o:p", ["server=", "directory=", "authentication=", "domain=", "port="])
-	conn = commandbuilder.serve_command()
+	cb = commandbuilder.CommandBuilder()
 	for opt, arg in opts:
 		if opt in ('-s', '--server'):
-			conn.server = arg 
+			cb.server = arg 
 		elif opt in ("-d", "--directory"):
-			conn.serving_directory = arg
+			cb.serving_directory = os.path.abspath(os.path.expanduser(arg))
 		elif opt in ("-a", "--authentication"):
-			conn.authentication = arg
+			cb.authentication = arg
 		elif opt in ("-o", "--domain"):
-			conn.domain = arg
+			cb.domain = arg
 		elif opt in ("-p", "--port"):
-			conn.port= arg
-	return conn 
-
+			cb.port= arg
+	return cb 
 
 # set credentials for access to server
 def get_credentials():
@@ -44,22 +37,19 @@ def get_credentials():
 	return username, password
 
 def main():
-	# set_working_directory()
+	command_builder = parse_args()
+	os.chdir(command_builder.serving_directory)
 
 	gen = htmlgenerator.HTMLGenerator()
 	html = gen.render_output(os.getcwd())
 	with open('index.html', 'w') as f:
 		f.write(html)
 
-	conn = get_server_command()
 	username, password = get_credentials()
-	c = conn.get_connection_string(username, password)
-	logging.debug(c)
-	# Node.JS server command
-	# start_srvr_cmd: str = f'http-server -p {port} --username={username} --password={password}'
+	command = command_builder.get_server_command(username, password)
 
 	# start server
-	os.system(c)
+	os.system(command)
 
 	# remove html after server stops
 	os.system('rm index.html')

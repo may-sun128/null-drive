@@ -8,8 +8,15 @@ class HTMLGenerator:
             <head>
                 <title>{{ Test }}</title>
                 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+                <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
             </head>
             <body>
+                {# Banner #}
+                <div class="w3-container w3-flat-midnight-blue">
+                    <h2>Null Drive</h2>
+                    <p>Support Local.</p>
+                </div>
+                {# Populate with directory contents#}
                 {% for item in items %}
                     <div class="w3-container">
                         {# Images #}
