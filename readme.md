@@ -8,9 +8,9 @@ Null Drive creates styled local directory server with a single command. Null Dri
 
 ## Example
 
-`$ python ~/null-drive/serve.py --directory=~/Files --port=8000 --server=python`
+`$ python ~/null-drive/serve.py --directory=~/Pictures --port=8000 --server=python`
 
-![null drive serving ~/Files](images/example.png)
+![null drive serving ~/Files](images/example-new.png)
 
 > Note: this looks unimpressive as is, but more advanced styling is forthcoming. 
 
