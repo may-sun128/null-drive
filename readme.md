@@ -2,9 +2,9 @@
 
 **Currently In Development**
 
-## What is it? 
+## About
 
-Null Drive creates styled local directory server with a single command. Null Drive is a similar to python's [SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html) or Node JS's [http-server](https://github.com/http-party/http-server) in this way, but provides auto-generated HTML using `jinja2`. 
+Command Line Interface tool that serves the contents of a directory as a web page. The program auto-generates the HTML and CSS for a stylish and visually appealing presentation of the files. It is designed to be run from the command prompt and provides a quick and convenient way to serve local files as a website.
 
 ## Example
 
@@ -13,11 +13,12 @@ Null Drive creates styled local directory server with a single command. Null Dri
 ![null drive serving ~/Files](images/example-new.png)
 
 `$ python ~/null-drive/serve.py -d ~/Movie-Posters`
+
 ![null drive serving ~/Movie-Posters](images/example-movie-posters.png)
 
 > Note: this looks unimpressive as is, but more advanced styling is forthcoming. 
 
 ## Dependencies 
 
-- node.js http-server, available globally 
+- node.js http-server, available globally (optional)
 - python 3
