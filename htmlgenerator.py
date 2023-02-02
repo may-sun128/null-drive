@@ -2,9 +2,10 @@ import jinja2
 import os
 
 class HTMLGenerator:
-    def __init__(self):
-        self.jinja_html: str = """
-        <html>
+    def __init__(self)
+        self.jinja_html = """
+            <!-- grid layout -->
+            <html>
             <head>
                 <title>{{ Test }}</title>
                 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -14,25 +15,28 @@ class HTMLGenerator:
                 {# Banner #}
                 <div class="w3-container w3-flat-midnight-blue">
                     <h2>Null Drive</h2>
-                    <p>Support Local.</p>
+                    {# <p>Support Local.</p> #}
                 </div>
                 {# Populate with directory contents#}
-                {% for item in items %}
-                    <div class="w3-container">
-                        {# Images #}
-                        {% if item.endswith('.jpg') or item.endswith('.jpeg') or item.endswith('.png') %}
-                        <h2>{{ item }}</h2>
-                        <div class="w3-card-4" style="width:50%">
-                            <img src="{{ item }}" style="width:100%">
-                            <div class="w3-container w3-center">
-                                <p>{{ item }}</p>
+                <div class="w3-row-padding">
+                    {% for item in items %}
+                        <div class="w3-col s3 w3-padding-16">
+                            {# Images #}
+                            {% if item.endswith('.jpg') or item.endswith('.jpeg') or item.endswith('.png') %}
+                                {# Card #}
+                                <div class="w3-card-4" style="width:100%" w3-padding-16>
+                                    <img src="{{ item }}" style="width:100%">
+                                    <div class="w3-container w3-center">
+                                        <p>{{ item }}</p>
+                                </div>
                             </div>
+                            {% endif %}
                         </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </body>
         </html>"""
+
         self.jin_env = jinja2.Environment()
         self.template = self.jin_env.from_string(self.jinja_html)
 
